@@ -1,0 +1,174 @@
+    [{
+        "name":"Current City",
+        "country":"Current Country",
+        "timezone": "",
+        "displayName":true,
+        "displayDate":true
+    },{
+            "name":"Honolulu",
+            "country":"United States of America",
+            "timezone": "Pacific/Honolulu",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"Anchorage",
+            "country":"United States of America",
+            "timezone": "America/Anchorage",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"Los Angeles",
+            "country":"United States of America",
+            "timezone": "America/Los_Angeles",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Denver",
+            "country":"United States of America",
+            "timezone": "America/Denver",
+            "displayName":false,
+            "displayDate":false
+        },
+        {
+            "name":"Chicago",
+            "country":"United States of America",
+            "timezone": "America/Chicago",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"New York",
+            "country":"United States of America",
+            "timezone": "America/New_York",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"Halifax",
+            "country":"Canada",
+            "timezone": "America/Halifax",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Santiago",
+            "country":"Chile",
+            "timezone": "America/Santiago",
+            "displayName":false,
+            "displayDate":false
+        },
+        {
+            "name":"Sao Paulo",
+            "country":"Brazil",
+            "timezone": "America/Sao_Paulo",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"Praia",
+            "country":"Cape Verde",
+            "timezone": "Atlantic/Cape_Verde",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"London",
+            "country":"United Kingdom",
+            "timezone": "Europe/London",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Paris",
+            "country":"France",
+            "timezone": "Europe/Paris",
+            "displayName":false,
+            "displayDate":false
+        },
+        {
+            "name":"Johannesburg",
+            "country":"South Africa",
+            "timezone": "Africa/Johannesburg",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"Moscow",
+            "country":"Russia",
+            "timezone": "Europe/Moscow",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"Dubai",
+            "country":"United Arab Emirates",
+            "timezone": "Asia/Dubai",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Kolkata",
+            "country":"India",
+            "timezone": "Asia/Kolkata",
+            "displayName":false,
+            "displayDate":false
+        },
+        {
+            "name":"Karachi",
+            "country":"Pakistan",
+            "timezone": "Asia/Karachi",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"Dhaka",
+            "country":"Bangladesh",
+            "timezone": "Asia/Dhaka",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"Bangkok",
+            "country":"Thailand",
+            "timezone": "Asia/Bangkok",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Shanghai",
+            "country":"China",
+            "timezone": "Asia/Shanghai",
+            "displayName":false,
+            "displayDate":false
+        },
+        {
+            "name":"Tokyo",
+            "country":"Japan",
+            "timezone": "Asia/Tokyo",
+            "displayName":true,
+            "displayDate":true
+        },
+        {
+            "name":"Brisbane",
+            "country":"Australia",
+            "timezone": "Australia/Brisbane",
+            "displayName":false,
+            "displayDate":true
+        },
+        {
+            "name":"Sydney",
+            "country":"Australia",
+            "timezone": "Australia/Sydney",
+            "displayName":true,
+            "displayDate":false
+        },
+        {
+            "name":"Auckland",
+            "country":"New Zealand",
+            "timezone": "Pacific/Auckland",
+            "displayName":false,
+            "displayDate":false
+        }]
