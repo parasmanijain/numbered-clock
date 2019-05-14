@@ -9,15 +9,8 @@
   In the given below example the A list of cities around the world along with their timezones has been fed to the component.
   <br/>
   In the first clock, it uses the default time and Location from the moment.js timezone.
-  </div>
-  
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 canvas-col" *ngFor="let city of cities | slice:0:5;">
-            <div>
-                <app-numbered-clock [city]="city.name" [timezone]="city.timezone" [displayDate]="city.displayDate" [displayName]="city.displayName"></app-numbered-clock>
-            </div>          
-            <p>{{city.name}}, {{city.country}}</p>
-        </div>          
-    </div>
-  </div>
+  </div>  
+<div class="cities" *ngFor="let city of cities | slice:0:5;">
+        <app-numbered-clock [city]="city.name" [timezone]="city.timezone" [displayDate]="city.displayDate" [displayName]="city.displayName"></app-numbered-clock>        
+    <p>{{city.name}}, {{city.country}}</p>
+</div>
