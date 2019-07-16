@@ -1,6 +1,6 @@
 # Numbered Clock
 
-Numbered Clock created using Angular 7, HTML5 Canvas, MomentJSTimezone displays time of cities around the world when provided with their timezone. For list of timezones kindly check- https://en.wikipedia.org/wiki/List_of_tz_database_time_zones 
+Numbered Clock created using Angular 8, HTML5 Canvas, MomentJSTimezone displays time of cities around the world when provided with their timezone. For list of timezones kindly check- https://en.wikipedia.org/wiki/List_of_tz_database_time_zones 
 
 ![alt text](img/chrome-numbered-clock.jpg)
 ![alt text](img/edge-numbered-clock.jpg)
@@ -10,7 +10,7 @@ Numbered Clock created using Angular 7, HTML5 Canvas, MomentJSTimezone displays 
 
 ## Demo
 
-Checkout the demo on StackBlitz - https://angular7-numbered-clock.stackblitz.io/
+Checkout the demo on StackBlitz - https://angular8-numbered-clock.stackblitz.io/
 
 ## Adding the component in your project
 
