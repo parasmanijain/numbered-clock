@@ -10,7 +10,7 @@
   <br/>
   In the first clock, it uses the default time and Location from the moment.js timezone.
   </div>  
-<div class="cities" *ngFor="let city of cities | slice:0:5;">
+<div class="cities" *ngFor="let city of cities">
         <app-numbered-clock [city]="city.name" [timezone]="city.timezone" [displayDate]="city.displayDate" [displayName]="city.displayName"></app-numbered-clock>        
     <p>{{city.name}}, {{city.country}}</p>
 </div>
