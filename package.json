@@ -21,7 +21,7 @@
     "@angular/router": "~12.2.6",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.0",
-    "moment-timezone": "^0.5.26",
+    "moment-timezone": "^0.5.35",
     "rxjs": "~6.6.7",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
