@@ -1,22 +1,22 @@
-import { Component, OnInit, AfterViewInit, Input} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import moment from 'moment-timezone';
 
 @Component({
   selector: 'app-numbered-clock',
   templateUrl: './numbered-clock.component.html',
-  styleUrls: ['./numbered-clock.component.css']
+  styleUrls: ['./numbered-clock.component.scss'],
+  standalone: true,
 })
-export class NumberedClockComponent implements  OnInit, AfterViewInit {
-
-  @Input() timezone;
-  @Input() city;
-  @Input() displayName: boolean;
-  @Input() displayDate: boolean;
-  public interval;
+export class NumberedClockComponent implements OnInit, AfterViewInit {
+  @Input() timezone = '';
+  @Input() city = '';
+  @Input() displayName = false;
+  @Input() displayDate = false;
+  public interval = 0;
   public canvas: any;
   public ctx: any;
-  public date;
-  constructor() { }
+  public date: any;
+  constructor() {}
 
   ngOnInit() {
     if (!this.timezone) {
@@ -24,22 +24,24 @@ export class NumberedClockComponent implements  OnInit, AfterViewInit {
     }
     if (!this.city) {
       this.city = 'local';
-  }
+    }
   }
 
   ngAfterViewInit() {
-    this.canvas = <HTMLCanvasElement> document.getElementById('numberedClockCanvas-' + this.timezone + '-' + this.city);
+    this.canvas = <HTMLCanvasElement>(
+      document.getElementById('numberedClockCanvas-' + this.timezone + '-' + this.city)
+    );
     this.ctx = this.canvas.getContext('2d');
     let radius = this.canvas.height / 2;
     this.ctx.translate(radius, radius);
-    radius = radius * 0.90;
+    radius = radius * 0.9;
     this.interval = setInterval(() => {
       this.date = moment().tz(this.timezone);
       this.drawClock(this.ctx, radius, this.date);
     }, 1000);
   }
 
-  drawClock(ctx, radius, date) {
+  drawClock(ctx: any, radius: any, date: any) {
     this.drawFace(ctx, radius);
     this.drawNumbers(ctx, radius);
     this.drawTime(ctx, radius, date);
@@ -48,16 +50,16 @@ export class NumberedClockComponent implements  OnInit, AfterViewInit {
       ctx.textAlign = 'center';
       ctx.translate(0, 0);
       if (this.displayDate) {
-        ctx.fillText(date.format('Do-MMM-YYYY'), 0, (0.45 * -radius));
+        ctx.fillText(date.format('Do-MMM-YYYY'), 0, 0.45 * -radius);
       }
       if (this.displayName) {
-        ctx.fillText(this.city, 0, (0.45 * radius));
+        ctx.fillText(this.city, 0, 0.45 * radius);
       }
       ctx.translate(0, 0);
     }
   }
 
-  drawFace(ctx, radius) {
+  drawFace(ctx: any, radius: any) {
     let grad;
     ctx.beginPath();
     ctx.arc(0, 0, radius, 0, 2 * Math.PI);
@@ -76,14 +78,14 @@ export class NumberedClockComponent implements  OnInit, AfterViewInit {
     ctx.fill();
   }
 
-  drawNumbers(ctx, radius) {
+  drawNumbers(ctx: any, radius: any) {
     let ang;
     let num;
     ctx.font = radius * 0.15 + 'px arial';
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     for (num = 1; num < 13; num++) {
-      ang = num * Math.PI / 6;
+      ang = (num * Math.PI) / 6;
       ctx.rotate(ang);
       ctx.translate(0, -radius * 0.85);
       ctx.rotate(-ang);
@@ -94,24 +96,22 @@ export class NumberedClockComponent implements  OnInit, AfterViewInit {
     }
   }
 
-  drawTime(ctx, radius, date) {
+  drawTime(ctx: any, radius: any, date: any) {
     let hour = date.hours();
     let minute = date.minutes();
     let second = date.seconds();
     hour = hour % 12;
-    hour = (hour * Math.PI / 6) +
-    (minute * Math.PI / (6 * 60)) +
-    (second * Math.PI / (360 * 60));
+    hour = (hour * Math.PI) / 6 + (minute * Math.PI) / (6 * 60) + (second * Math.PI) / (360 * 60);
     this.drawHand(ctx, hour, radius * 0.5, radius * 0.07);
     // minute
-    minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+    minute = (minute * Math.PI) / 30 + (second * Math.PI) / (30 * 60);
     this.drawHand(ctx, minute, radius * 0.8, radius * 0.07);
     // second
-    second = (second * Math.PI / 30);
+    second = (second * Math.PI) / 30;
     this.drawHand(ctx, second, radius * 0.9, radius * 0.02);
-}
+  }
 
-  drawHand(ctx, pos, length, width) {
+  drawHand(ctx: any, pos: any, length: any, width: any) {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.lineCap = 'round';
