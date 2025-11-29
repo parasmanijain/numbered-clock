@@ -5,16 +5,17 @@ import moment from 'moment-timezone';
   selector: 'app-numbered-clock',
   templateUrl: './numbered-clock.component.html',
   styleUrls: ['./numbered-clock.component.scss'],
+  standalone: true,
 })
 export class NumberedClockComponent implements OnInit, AfterViewInit {
-  @Input() timezone;
-  @Input() city;
-  @Input() displayName: boolean;
-  @Input() displayDate: boolean;
-  public interval;
+  @Input() timezone = '';
+  @Input() city = '';
+  @Input() displayName = false;
+  @Input() displayDate = false;
+  public interval = 0;
   public canvas: any;
   public ctx: any;
-  public date;
+  public date: any;
   constructor() {}
 
   ngOnInit() {
@@ -40,7 +41,7 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  drawClock(ctx, radius, date) {
+  drawClock(ctx: any, radius: any, date: any) {
     this.drawFace(ctx, radius);
     this.drawNumbers(ctx, radius);
     this.drawTime(ctx, radius, date);
@@ -58,7 +59,7 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     }
   }
 
-  drawFace(ctx, radius) {
+  drawFace(ctx: any, radius: any) {
     let grad;
     ctx.beginPath();
     ctx.arc(0, 0, radius, 0, 2 * Math.PI);
@@ -77,7 +78,7 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     ctx.fill();
   }
 
-  drawNumbers(ctx, radius) {
+  drawNumbers(ctx: any, radius: any) {
     let ang;
     let num;
     ctx.font = radius * 0.15 + 'px arial';
@@ -95,7 +96,7 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     }
   }
 
-  drawTime(ctx, radius, date) {
+  drawTime(ctx: any, radius: any, date: any) {
     let hour = date.hours();
     let minute = date.minutes();
     let second = date.seconds();
@@ -110,7 +111,7 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     this.drawHand(ctx, second, radius * 0.9, radius * 0.02);
   }
 
-  drawHand(ctx, pos, length, width) {
+  drawHand(ctx: any, pos: any, length: any, width: any) {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.lineCap = 'round';
