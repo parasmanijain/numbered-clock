@@ -12,13 +12,13 @@
   In the first clock, it uses the default time and Location from the moment.js timezone.
 </div>
 @for (city of cities; track city) {
-<div class="cities">
-  <app-numbered-clock
-    [city]="city.name"
-    [timezone]="city.timezone"
-    [displayDate]="city.displayDate"
-    [displayName]="city.displayName"
-  ></app-numbered-clock>
-  <p>{{ city.name }}, {{ city.country }}</p>
-</div>
+  <div class="cities">
+    <app-numbered-clock
+      [city]="city.name"
+      [timezone]="city.timezone"
+      [displayDate]="city.displayDate"
+      [displayName]="city.displayName"
+    ></app-numbered-clock>
+    <p>{{ city.name }}, {{ city.country }}</p>
+  </div>
 }
