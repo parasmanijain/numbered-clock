@@ -1,12 +1,20 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CitiesService } from './cities.service';
 
 describe('CitiesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: CitiesService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [CitiesService],
+    });
+    service = TestBed.inject(CitiesService);
+  });
 
   it('should be created', () => {
-    const service: CitiesService = TestBed.get(CitiesService);
     expect(service).toBeTruthy();
   });
 });

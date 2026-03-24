@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
-import moment from 'moment-timezone';
+import { Component, OnInit, AfterViewInit, Input, OnDestroy } from '@angular/core';
+import { format, getHours, getMinutes, getSeconds } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 @Component({
   selector: 'app-numbered-clock',
@@ -7,41 +8,58 @@ import moment from 'moment-timezone';
   styleUrls: ['./numbered-clock.component.scss'],
   standalone: true,
 })
-export class NumberedClockComponent implements OnInit, AfterViewInit {
-  @Input() timezone = '';
-  @Input() city = '';
-  @Input() displayName = false;
-  @Input() displayDate = false;
-  public interval = 0;
-  public canvas: any;
-  public ctx: any;
-  public date: any;
+export class NumberedClockComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() timezone: string = '';
+  @Input() city: string = '';
+  @Input() displayName: boolean = false;
+  @Input() displayDate: boolean = false;
+
+  public interval: number = 0;
+  public canvas: HTMLCanvasElement | null = null;
+  public ctx: CanvasRenderingContext2D | null = null;
+  public date: Date | null = null;
+
   constructor() {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.timezone) {
-      this.timezone = moment.tz.guess();
+      this.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
     if (!this.city) {
       this.city = 'local';
     }
   }
 
-  ngAfterViewInit() {
-    this.canvas = <HTMLCanvasElement>(
-      document.getElementById('numberedClockCanvas-' + this.timezone + '-' + this.city)
-    );
-    this.ctx = this.canvas.getContext('2d');
-    let radius = this.canvas.height / 2;
-    this.ctx.translate(radius, radius);
-    radius = radius * 0.9;
-    this.interval = setInterval(() => {
-      this.date = moment().tz(this.timezone);
-      this.drawClock(this.ctx, radius, this.date);
-    }, 1000);
+  ngAfterViewInit(): void {
+    this.canvas = document.getElementById(
+      `numberedClockCanvas-${this.timezone}-${this.city}`,
+    ) as HTMLCanvasElement;
+
+    if (this.canvas) {
+      this.ctx = this.canvas.getContext('2d');
+      if (this.ctx) {
+        let radius = this.canvas.height / 2;
+        this.ctx.translate(radius, radius);
+        radius = radius * 0.9;
+        this.interval = window.setInterval(() => {
+          // Get current UTC time and convert to the specified timezone
+          const now = new Date();
+          this.date = toZonedTime(now, this.timezone);
+          if (this.ctx && this.date) {
+            this.drawClock(this.ctx, radius, this.date);
+          }
+        }, 1000);
+      }
+    }
   }
 
-  drawClock(ctx: any, radius: any, date: any) {
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  private drawClock(ctx: CanvasRenderingContext2D, radius: number, date: Date): void {
     this.drawFace(ctx, radius);
     this.drawNumbers(ctx, radius);
     this.drawTime(ctx, radius, date);
@@ -50,7 +68,9 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
       ctx.textAlign = 'center';
       ctx.translate(0, 0);
       if (this.displayDate) {
-        ctx.fillText(date.format('Do-MMM-YYYY'), 0, 0.45 * -radius);
+        // Format date using date-fns with timezone awareness
+        const formattedDate = format(date, 'do-MMM-yyyy');
+        ctx.fillText(formattedDate, 0, 0.45 * -radius);
       }
       if (this.displayName) {
         ctx.fillText(this.city, 0, 0.45 * radius);
@@ -59,8 +79,8 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     }
   }
 
-  drawFace(ctx: any, radius: any) {
-    let grad;
+  private drawFace(ctx: CanvasRenderingContext2D, radius: number): void {
+    let grad: CanvasGradient;
     ctx.beginPath();
     ctx.arc(0, 0, radius, 0, 2 * Math.PI);
     ctx.fillStyle = 'white';
@@ -78,10 +98,10 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     ctx.fill();
   }
 
-  drawNumbers(ctx: any, radius: any) {
-    let ang;
-    let num;
-    ctx.font = radius * 0.15 + 'px arial';
+  private drawNumbers(ctx: CanvasRenderingContext2D, radius: number): void {
+    let ang: number;
+    let num: number;
+    ctx.font = `${radius * 0.15}px arial`;
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     for (num = 1; num < 13; num++) {
@@ -96,10 +116,10 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     }
   }
 
-  drawTime(ctx: any, radius: any, date: any) {
-    let hour = date.hours();
-    let minute = date.minutes();
-    let second = date.seconds();
+  private drawTime(ctx: CanvasRenderingContext2D, radius: number, date: Date): void {
+    let hour: number = getHours(date);
+    let minute: number = getMinutes(date);
+    let second: number = getSeconds(date);
     hour = hour % 12;
     hour = (hour * Math.PI) / 6 + (minute * Math.PI) / (6 * 60) + (second * Math.PI) / (360 * 60);
     this.drawHand(ctx, hour, radius * 0.5, radius * 0.07);
@@ -111,7 +131,12 @@ export class NumberedClockComponent implements OnInit, AfterViewInit {
     this.drawHand(ctx, second, radius * 0.9, radius * 0.02);
   }
 
-  drawHand(ctx: any, pos: any, length: any, width: any) {
+  private drawHand(
+    ctx: CanvasRenderingContext2D,
+    pos: number,
+    length: number,
+    width: number,
+  ): void {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.lineCap = 'round';

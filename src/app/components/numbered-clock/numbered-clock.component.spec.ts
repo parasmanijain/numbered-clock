@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NumberedClockComponent } from './numbered-clock.component';
 
@@ -6,12 +6,11 @@ describe('NumberedClockComponent', () => {
   let component: NumberedClockComponent;
   let fixture: ComponentFixture<NumberedClockComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NumberedClockComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NumberedClockComponent],
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NumberedClockComponent);

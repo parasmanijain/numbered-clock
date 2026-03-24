@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CitiesService } from './services/cities.service';
+import { CitiesService, City } from './services/cities.service';
 import { NumberedClockComponent } from './components/numbered-clock/numbered-clock.component';
-
 
 @Component({
   selector: 'app-root',
@@ -12,16 +11,17 @@ import { NumberedClockComponent } from './components/numbered-clock/numbered-clo
   providers: [CitiesService],
 })
 export class AppComponent implements OnInit {
-  public cities: any[] = [];
+  public cities: City[] = [];
 
   constructor(private citiesService: CitiesService) {}
-  ngOnInit() {
+
+  ngOnInit(): void {
     this.getCities();
   }
 
-  getCities() {
-    this.citiesService.getCities().subscribe((res) => {
-      this.cities = res as any[];
+  getCities(): void {
+    this.citiesService.getCities().subscribe((res: City[]) => {
+      this.cities = res;
     });
   }
 }

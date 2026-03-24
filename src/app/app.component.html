@@ -1,15 +1,15 @@
 <div class="instruction">
   The Analog Numbered Clock shows times across different cities around the world
   <br />
-  It utilizes moment-timezone js library to depict DST corrected time by taking the timezone value
-  as input. and feeding them to clocks created by HTML5 Canvas.
+  It utilizes date-fns and date-fns-tz libraries to depict DST corrected time by taking the timezone
+  value as input and feeding them to clocks created by HTML5 Canvas.
   <br />
   It also provides option to the user to display neither, either or both the city's name and date.
   <br />
-  In the given below example the A list of cities around the world along with their timezones has
-  been fed to the component.
+  In the given below example, a list of cities around the world along with their timezones has been
+  fed to the component.
   <br />
-  In the first clock, it uses the default time and Location from the moment.js timezone.
+  In the first clock, it uses the default time and location from the browser's timezone detection.
 </div>
 @for (city of cities; track city) {
   <div class="cities">

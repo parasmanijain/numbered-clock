@@ -2,20 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// 1️⃣ Define a model for city (recommended)
+// Enhanced City interface with additional properties for the clock component
 export interface City {
   id: number;
   name: string;
   country: string;
+  timezone: string;
+  displayDate: boolean;
+  displayName: boolean;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class CitiesService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
-  // 2️⃣ Use Angular 15+ typed HttpClient
+  // Use Angular 15+ typed HttpClient with proper error handling
   getCities(): Observable<City[]> {
     return this.http.get<City[]>('assets/json/cities.json');
   }

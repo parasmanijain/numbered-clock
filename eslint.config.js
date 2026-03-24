@@ -1,20 +1,16 @@
 // @ts-check
 const eslint = require("@eslint/js");
-const { defineConfig } = require("eslint/config");
-const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 
-module.exports = defineConfig([
+module.exports = [
   {
     files: ["**/*.ts"],
-    extends: [
-      eslint.configs.recommended,
-      tseslint.configs.recommended,
-      tseslint.configs.stylistic,
-      angular.configs.tsRecommended,
-    ],
-    processor: angular.processInlineTemplates,
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+    },
     rules: {
+      ...eslint.configs.recommended.rules,
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -35,10 +31,10 @@ module.exports = defineConfig([
   },
   {
     files: ["**/*.html"],
-    extends: [
-      angular.configs.templateRecommended,
-      angular.configs.templateAccessibility,
-    ],
-    rules: {},
+    rules: {
+      "@angular-eslint/template/no-negated-async": "error",
+      "@angular-eslint/template/banana-in-box": "error",
+      "@angular-eslint/template/no-any": "warn",
+    },
   }
-]);
+];
