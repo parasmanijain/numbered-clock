@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CitiesService, City } from './services/cities.service';
 import { NumberedClockComponent } from './components/numbered-clock/numbered-clock.component';
 
@@ -11,17 +11,18 @@ import { NumberedClockComponent } from './components/numbered-clock/numbered-clo
   providers: [CitiesService],
 })
 export class AppComponent implements OnInit {
-  public cities: City[] = [];
-
-  constructor(private citiesService: CitiesService) {}
+  cities = signal<City[]>([]);
+  citiesService = inject(CitiesService);
 
   ngOnInit(): void {
     this.getCities();
   }
 
   getCities(): void {
-    this.citiesService.getCities().subscribe((res: City[]) => {
-      this.cities = res;
+    this.citiesService.getCities().subscribe({
+      next: (data) => {
+        this.cities.set(data);
+      },
     });
   }
 }

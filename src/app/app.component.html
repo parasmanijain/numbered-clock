@@ -11,7 +11,7 @@
   <br />
   In the first clock, it uses the default time and location from the browser's timezone detection.
 </div>
-@for (city of cities; track city) {
+@for (city of cities(); track city) {
   <div class="cities">
     <app-numbered-clock
       [city]="city.name"
